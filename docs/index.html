@@ -4,14 +4,13 @@
     <!-- Head -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Armour Calculator</title>
     <link rel="stylesheet" href="styles.css">
 
     <!-- Metadata -->
-    <meta property="og:title" content="Enlistment Centre Questions Generator" />
+    <meta property="og:title" content="IX Armour Calculator" />
     <meta property="og:description" content="Questions generator for Installation IX's SD Enlistment Centre. See the website footer for more details." />
     <meta property="og:url" content="https://greenloop36.github.io/sd-enlistment-centre-helper/" />
-    <!-- <meta property="og:image" content="icons/logo-sd.png" /> -->
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#335f63" />
 
@@ -19,6 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=B612+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
      <!-- <link href="https://fonts.googleapis.com/css2?family=B612:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet"> -->
 
     <!-- Scripts -->
@@ -26,6 +26,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script defer src="scripts/dark-mode.js"></script>
     <script defer src="scripts/main.js"></script>
+    <script defer src="scripts/information.js"></script>
 </head>
 
 <body>
@@ -34,86 +35,104 @@
         Please wait
     </div>
 
-    <!-- <div id="consent-dialog">
-        <div id="consent-container">
+    <div id="dialog">
+        <div id="dialog-container">
             <div>
-                <h1>Cookie Preferences</h1>
-                <p>
-                    This site uses cookies to analyse traffic only.<br>
-                    Collected data is not shared with any third party, other than the owner of this site.<br>
-                    You can reset consent by clicking the link at the foot of this page.<br><br>
-                    Advertisements are not displayed on this site.
+                <h1 id="dialog-title">TITLE</h1>
+                <p id="dialog-content">
+                    CONTENT
                 </p>
             </div>
             
             <div id="buttons" style="margin-top: 1em; align-items: right;">
-                <button id="consent-consent">Consent</button>
-                <button id="consent-deny" class="secondary">Deny</button>
+                <button id="dialog-close">Close</button>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <div class="content">
         <header>
             <div>
-                <h1>Enlistment Centre Questions Generator</h1>
-                <p>Maintained by <a href="https://github.com/Greenloop36">Greenloop36</a>, for the Security Department of Installation IX.</p>
+                <h1>Armour Calculator</h1>
+                <p>Maintained by <a href="https://github.com/Greenloop36">Greenloop36</a>, for Installation IX.</p>
             </div>
 
             <button id="btn-dark-mode">Dark Mode</button>
         </header>
 
         <div class="body">
-            <div id="file-upload">
-                <h1>Upload Configuration File</h1>
-                <p>To begin, upload your configuration file for the Enlistment Centre.</p>
+            <div id="section-form">
+                <h1>Parameters</h1>
+                <p>Input the required parameters into the calculator.<br>Note that damage dropoff or damage multipliers (torso, head) are not accounted for.</p>
 
-                <form>
-                    <label for="file-input" id="drop-area" class="drop-area">
-                        <input type="file" accept=".json" id="file-input" hidden></input>
-                        <p>
-                            Drop your file here, or click here to select one.
-                        </p>
-                    </label>
-                </form>
+                <div id="form" class="form">
+                    <p><label for="damage" min="0">Damage</label>
+                    <input type="number" id="damage" name="damage"></input><p>
 
-                <p id="file-upload-result"></p>
+                    <p><label for="armour-health">Armour health</label>
+                    <input type="number" id="armour-health" name="armour-health"></input><p>
+
+                    <p><label for="armour-abs">Armour absorption %</label>
+                    <input type="number" id="armour-abs" name="armour-abs"></input></p>
+
+                    <p><label for="armour-pen">Armour penetration %</label> <a id="pen-help">[info]</a>
+                    <input type="number" id="armour-pen" name="armour-pen"></input></p>
+
+                    <div>
+                        <button id="form-clear" class="secondary">Clear</button>
+                        <button id="form-submit">Submit</button>
+                    </div>
+                </div>
+
+                <p id="form-result"></p>
             </div>
 
-            <div id="quiz-select" hidden>
-                <h1>Quiz Selection</h1>
-                <p>Select which quiz to generate questions for.</p>
+            <div id="section-result" hidden>
+                <h1>Result</h1>
                 
-                <ul id="quiz-list">
-                    <li>
-                        <p>
-                            <strong>Quiz Name</strong><br>
-                            Quiz Description<br>
-                            <em>x questions</em>
-                        </p>
+                <p id="result-player-health" class="big-number">PLR HLTH</p>
+                <p id="result-player-dmg" class="small-number">PLR DMG</p>
 
-                        <button>Go</button>
-                    </li>
-                </ul>
+                <div class="bar-container">
+                    <div class="bar" id="bar-health"></div>
+                </div>
+
+                <div class="bar-label">
+                    <p>Player health</p>
+                    <p class="label-num" id="result-plr-max">MAX</p>
+                </div>
+
+                
+                <p id="result-armour-health" class="big-number">ARM HLTH</p>
+                <p id="result-armour-dmg" class="small-number">ARM DMG</p>
+                <div class="bar-container">
+                    <div class="bar" id="bar-armour"></div>
+                </div>
+                <div class="bar-label">
+                    <p>Armour health</p>
+                    <p class="label-num" id="result-arm-max">MAX</p>
+                </div>
+                
             </div>
 
-            <div id="quiz-generate">
-                <h1>Quiz Generation</h1>
-                <p></p>
+            <div id="section-info">
+                <h1>More Information</h1>
+                <p>A graphic containing how armour works can be found <a href="images/armour-graphic.png">here</a>.</p>
+                <p>Click <a id="info-armour">here</a> for a breakdown on what the different parameters do.</p>
             </div>
         </div>
 
+
         <!-- Foot -->
         <footer>
-            <strong>Security Department Enlistment Centre: Questions Generator</strong><br>
+            <strong>IX Armour Calculator</strong><br>
+            <p>Release [beta]</p>
             <p>© Copyright Greenloop36 (2025)</p>
             <hr>
             <p>
                 Project maintained by Greenloop36.<br>
                 This project is open source! You can view the source code <a href="https://github.com/Greenloop36/sd-enlistment-centre-helper">here</a>.<br>
-                Licensed under the <a href="https://github.com/Greenloop36/sd-enlistment-centre-helper/blob/main/LICENSE">BSD 3-Clause License</a>.<br><br>
-                <!-- <a id="consent-reset">Reset cookie consent</a> -->
-                 <!-- <button class="secondary">Reset Cookie Consent</button> -->
+                Licensed under the <a href="https://github.com/Greenloop36/sd-enlistment-centre-helper/blob/main/LICENSE">BSD 3-Clause License</a>.
             </p>
         </footer>
     </div>
