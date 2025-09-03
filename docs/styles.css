@@ -1,0 +1,255 @@
+/* Variables */
+:root {
+    --text-header: rgb(51, 95, 99);
+    --text-header-muted :rgba(51, 95, 99, 0.15);
+
+    --text-primary: rgb(39, 105, 186);
+    --text-primary-muted: rgba(39, 105, 186, 0.15);
+
+    --white: rgb(255, 255, 255);
+    --black: rgb(0, 0, 0)
+}
+
+/* Configuration */
+body, html {
+    font-family: "Open Sans";
+
+    /* Light Mode */
+    color: var(--black);
+    background-color: var(--white);
+}
+
+.dark-mode {
+    color: var(--white);
+    background-color: var(--black);
+}
+
+body {
+    /* font-family: "Open Sans", sans-serif; */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+
+    transition: all 250ms;
+}
+
+.content {
+    max-width: 750px;
+    width: 100%;
+    height: calc(100vh - 2em);
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.body {
+    flex: 1;
+}
+
+h1 {
+    margin: 0;
+    margin-top: 1em;
+    font-weight: normal;
+    font-size: 20px;
+    color: var(--text-primary)
+}
+
+p {
+    font-size: 15px;
+    margin: 0;
+}
+
+a {
+    text-decoration: underline;
+    color: var(--text-primary);
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+button {
+    margin-left: 1em;
+    padding: 8px 20px;
+    min-height: 0;
+    height: fit-content;
+    border: 0;
+
+    background-color: var(--text-primary);
+    color: var(--white);
+
+    font-family: inherit;
+    transition: 
+        background-color 200ms;
+}
+
+button.secondary {
+    background-color: var(--white);
+    color: var(--text-primary);
+}
+
+button.secondary:hover {
+    background-color: var(--text-primary-muted);
+}
+
+button:hover {
+    background-color: var(--text-primary-muted);
+    color: var(--text-primary);
+}
+
+/* Loading Overlay */
+#loading {
+    font-family: monospace;
+
+    position: fixed;
+    display: flex;
+    
+    width: 100%;
+    height: 100%;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background-color: var(--white);
+}
+
+/* Consent dialog */
+#consent-dialog {
+    display: none; /* flex by default */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0, 0.5);
+
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+#consent-container {
+    padding: 1em;
+    background-color: var(--white);
+}
+
+#consent-container h1 {
+    margin: 0;
+}
+
+#consent-container #buttons {
+    flex-direction: row-reverse;
+    display: flex;
+}
+
+#consent-container button {
+    margin-left: 1em;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    margin: 0;
+    margin-bottom: 2em;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 25px;
+    color: var(--text-header)
+}
+
+header p {
+    margin: 0;
+    font-size: 13px;
+}
+
+header a {
+    color: var(--text-header)
+}
+
+header button {
+    background-color: var(--text-header);
+}
+
+header button:hover {
+    background-color: var(--text-header-muted);
+    color: var(--text-header);
+}
+
+header div {
+    margin-right: 1em;
+}
+
+/* Footer */
+footer {
+    min-height: 50px;
+}
+
+footer p {
+    font-size: 13px;
+}
+
+/* class: File drop box */
+.drop-area {
+    margin-top: 1em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* width: 100%; */
+    height: 50px;
+    padding: 20px;
+
+    text-align: center;
+    border: 2px dotted var(--text-primary);
+    background-color: var(--text-primary-muted);
+    color: var(--text-primary);
+
+    cursor: pointer;
+}
+
+.file-drop-box {
+    width: 100%;
+    height: 100%;
+}
+
+form {
+    width: 100%;
+}
+
+/* section: Quiz Selection */
+#quiz-select ul {
+    justify-content: left;
+    padding: 0;
+}
+
+#quiz-select ul li {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    margin: 1em 0;
+    padding: 10px;
+
+    border: 1px solid var(--text-primary);
+}
+
+#quiz-select ul li p {
+    width: 100%;
+}
+
+#quiz-select ul li strong {
+    font-size: 17px;
+}
+
+#quiz-select ul li em {
+    font-size: 13px;
+}
